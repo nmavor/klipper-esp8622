@@ -9,7 +9,7 @@ import ssd1306
 # Network settings
 wifi_ssid = "*************"
 wifi_password = "***********"
-host = "http://172.16.0.215:7125"
+host = "http://**********:7125"
 printer_api = "/api/printer"
 status_api = "/printer/objects/query?webhooks&virtual_sdcard&print_stats"
 

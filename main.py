@@ -1,4 +1,4 @@
-from machine import I2C, Pin
+from machine import I2C, Pin, WDT
 import sys
 import network
 import utime
@@ -12,6 +12,7 @@ wifi_password = "***********"
 host = "http://**********:7125"
 printer_api = "/api/printer"
 status_api = "/printer/objects/query?webhooks&virtual_sdcard&print_stats"
+wdt = WDT(timeout=10000)
 
 station = network.WLAN(network.STA_IF)
 station.active(True)
@@ -31,6 +32,7 @@ while not station.isconnected():
     station.connect(wifi_ssid, wifi_password)
 
 while station.isconnected():
+    wdt.feed()    
     response = urequests.get(host+printer_api)
     data = response.json()
     bed_temp = "Bed : " + str(data["temperature"]["bed"]["target"]) + "/" + str(data["temperature"]["bed"]["actual"])
